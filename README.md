@@ -14,15 +14,15 @@ Since it uses sine, and cosine values. To efficiently generate the required valu
 ### CORDIC ALGORITHM
 The code below rotates a vector through a sequence of micro-rotations to generate sine and cosine values from an input angle. It only uses shift and add operations. The atan(i) is referring to a lookup table consisting of the special angles
 ```vhdl
-            for i in 0 to OUTPUT_BITS - 2 loop
-                if z(i) < 0 then
-                    x(i + 1) <= x(i) + shift_right(y(i), i);
-                    y(i + 1) <= y(i) - shift_right(x(i), i);
-                    z(i + 1) <= z(i) + atan(i);
-                else
-                    x(i + 1) <= x(i) - shift_right(y(i), i);
-                    y(i + 1) <= y(i) + shift_right(x(i), i);
-                    z(i + 1) <= z(i) - atan(i);
-                end if;
-            end loop;
+for i in 0 to OUTPUT_BITS - 2 loop
+    if z(i) < 0 then
+        x(i + 1) <= x(i) + shift_right(y(i), i);
+        y(i + 1) <= y(i) - shift_right(x(i), i);
+        z(i + 1) <= z(i) + atan(i);
+    else
+        x(i + 1) <= x(i) - shift_right(y(i), i);
+        y(i + 1) <= y(i) + shift_right(x(i), i);
+        z(i + 1) <= z(i) - atan(i);
+    end if;
+end loop;
 ```
