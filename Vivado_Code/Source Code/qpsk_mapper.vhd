@@ -1,47 +1,50 @@
-library IEEE;
-use IEEE.STD_LOGIC_1164.ALL;
-use IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
+
+-- CONSTELLATION
+-- INPUT BITS | OUTPUT SYMBOLS
+--     00     | (+1, +j)
+--     01     | (-1, +j)
+--     10     | (+1, -j)
+--     11     | (-1, -j)
 
 entity qpsk_mapper is
-    port(
-        CLK     : in  std_logic;
-        RST     : in  std_logic;
-        INPUT_BITS : in  std_logic_vector(1 downto 0);
-        I_OUT   : out signed(1 downto 0);
-        Q_OUT   : out signed(1 downto 0)
-    );
+Port ( 
+    input_bits: in std_logic_vector(1 downto 0);
+    clk: in std_logic;
+    rst: in std_logic;
+    i_symbol: out std_logic_vector(1 downto 0);
+    q_symbol: out std_logic_vector(1 downto 0)
+);
 end qpsk_mapper;
 
 architecture Behavioral of qpsk_mapper is
-    signal I_reg : signed(1 downto 0);
-    signal Q_reg : signed(1 downto 0);
 begin
-    process(CLK, RST)
+    process (clk, rst)
     begin
-        if RST = '1' then
-            I_reg <= (others => '0');
-            Q_reg <= (others => '0');
-        elsif rising_edge(CLK) then
-            case INPUT_BITS is
-                when "00" =>
-                    I_reg <= to_signed(1,2);
-                    Q_reg <= to_signed(1,2);
+        if (rst = '1') then
+            i_symbol <= (others => '0');
+            q_symbol <= (others => '0');
+        elsif (rising_edge(clk)) then
+            -- First bit will be the sign bit
+            case input_bits is
+                when "00" => 
+                    i_symbol <= "01";
+                    q_symbol <= "01";
                 when "01" =>
-                    I_reg <= to_signed(-1,2);
-                    Q_reg <= to_signed(1,2);
-                when "11" =>
-                    I_reg <= to_signed(-1,2);
-                    Q_reg <= to_signed(-1,2);
+                    i_symbol <= "11";
+                    q_symbol <= "01";
                 when "10" =>
-                    I_reg <= to_signed(1,2);
-                    Q_reg <= to_signed(-1,2);
+                    i_symbol <= "01";
+                    q_symbol <= "11";
+                when "11" =>
+                    i_symbol <= "11";
+                    q_symbol <= "11";
                 when others =>
-                    I_reg <= (others => '0');
-                    Q_reg <= (others => '0');
-            end case;
+                    i_symbol <= "00";
+                    q_symbol <= "00";
+            end case;    
         end if;
     end process;
-
-    I_OUT <= I_reg;
-    Q_OUT <= Q_reg;
 end Behavioral;
