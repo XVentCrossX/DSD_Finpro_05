@@ -59,5 +59,5 @@ print(f"Samples: {no_of_samples}")
 rms_sin = math.sqrt(sum(x * x for x in sin_err) / len(sin_err))
 rms_cos = math.sqrt(sum(x * x for x in cos_err) / len(cos_err))
 
-print(f"RMS SIN error: {rms_sin:.6f} ({rms_sin*100:.3f}%)")
-print(f"RMS COS error: {rms_cos:.6f} ({rms_cos*100:.3f}%)")
+print(f"RMS SIN error: {rms_sin:.6f}")
+print(f"RMS COS error: {rms_cos:.6f}")
