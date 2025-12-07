@@ -68,3 +68,23 @@ Uses structural modeling to link the symbol mapper, phase accumulator, CORDIC ca
  I_MIX <= I_SIGNAL;
  Q_MIX <= Q_SIGNAL;
 ```
+
+### IQ MIXER
+It Multiplies the I/Q symbols with their cosine/sine carriers and outputs the mixed I and Q signals.(Q_sine), producing 18-bit signed outputs I_MIX and Q_MIX
+```vhdl
+elsif (rising_edge(CLK)) then
+    I_mix_result <= signed(I_SYMBOL) * signed(I_cos);
+    Q_mix_result <= signed(Q_SYMBOL) * signed(Q_sine);
+    I_MIX <= std_logic_vector(I_mix_result);
+    Q_MIX <= std_logic_vector(Q_mix_result);
+end if;
+```
+
+### PHASE ACCUMULATOR
+Acts as a simple numerically controlled oscillator. On every clock it adds PHASE_INC to phase_reg and outputs the updated phase, creating the running phase for the CORDIC.
+```vhdl
+elsif (rising_edge(CLK)) then
+    phase_reg <= phase_reg + unsigned(PHASE_INC);
+    PHASE <= std_logic_vector(phase_reg);
+end if;
+```
