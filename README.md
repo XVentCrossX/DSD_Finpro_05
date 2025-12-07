@@ -11,7 +11,8 @@ This FPGA is used to process a binary data stream, and process it into a phase-m
 Since it uses sine, and cosine values. To efficiently generate the required values, we use the CORDIC (Coordinate Rotation Digital Computer) algorithm, which allows trigonometric computations to be implemented using shift, and add operations. 
 
 ## Code Explanation
-### CORDIC ALGORITHM: the code below rotates a vector through a sequence of micro-rotations to generate sine and cosine values from an input angle. It only uses shift and add operations. The atan(i) is referring to a lookup table consisting of the special angles
+### CORDIC ALGORITHM
+The code below rotates a vector through a sequence of micro-rotations to generate sine and cosine values from an input angle. It only uses shift and add operations. The atan(i) is referring to a lookup table consisting of the special angles
 ```vhdl
             for i in 0 to OUTPUT_BITS - 2 loop
                 if z(i) < 0 then
