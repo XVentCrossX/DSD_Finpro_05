@@ -27,7 +27,7 @@ for i in 0 to OUTPUT_BITS - 2 loop
 end loop;
 ```
 
-###QPSK MAPPER
+### QPSK MAPPER
 The QPSK mapper assigns each incoming 2-bit input to its corresponding constellation point by outputting the appropriate I and Q symbol values. The first bit determines the sign of the I component, while the second bit determines the sign of the Q component. Each symbol is represented using 2-bit signed format, where "01" corresponds to +1 and "11" corresponds to –1. The mapping is implemented inside a clocked process that updates the I/Q outputs on every rising clock edge.
 ```vhdl
 case input_bits is
