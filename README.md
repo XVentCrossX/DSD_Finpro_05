@@ -45,3 +45,26 @@ case input_bits is
         q_symbol <= "11";   -- -1
 end case;
 ```
+
+### QPSK MODULATOR (Top-level entity)
+Uses structural modeling to link the symbol mapper, phase accumulator, CORDIC carrier generator, and IQ mixer into a full QPSK modulator.
+```vhdl
+ u_iq_mixer: iq_mixer port map (
+     CLK => CLK,
+     RST => RST,
+     INPUT_BITS => INPUT_STREAM,
+     PHASE_INC => PHASE_INC,
+     I_MIX => I_SIGNAL,
+     Q_MIX => Q_SIGNAL
+ );
+ 
+ u_n_bit_adder: n_bit_adder port map (
+     a => I_SIGNAL,
+     b => Q_SIGNAL,
+     carry_in => '0',
+     output => MODULATED_SIGNAL,
+     carry_out => carry
+ );
+ I_MIX <= I_SIGNAL;
+ Q_MIX <= Q_SIGNAL;
+```
