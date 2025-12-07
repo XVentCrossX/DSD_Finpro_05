@@ -26,6 +26,43 @@ for i in 0 to OUTPUT_BITS - 2 loop
     end if;
 end loop;
 ```
+These are the special angles generated using the Python script:
+```vhdl
+    constant atan: atan_table_array := (
+        X"20000000",
+        X"12E4051E",
+        X"09FB385B",
+        X"051111D4",
+        X"028B0D43",
+        X"0145D7E1",
+        X"00A2F61E",
+        X"00517C55",
+        X"0028BE53",
+        X"00145F2F",
+        X"000A2F98",
+        X"000517CC",
+        X"00028BE6",
+        X"000145F3",
+        X"0000A2FA",
+        X"0000517D",
+        X"000028BE",
+        X"0000145F",
+        X"00000A30",
+        X"00000518",
+        X"0000028C",
+        X"00000146",
+        X"000000A3",
+        X"00000051",
+        X"00000029",
+        X"00000014",
+        X"0000000A",
+        X"00000005",
+        X"00000003",
+        X"00000001",
+        X"00000000"
+    );
+    
+```
 
 ### QPSK MAPPER
 The QPSK mapper assigns each incoming 2-bit input to its corresponding constellation point by outputting the appropriate I and Q symbol values. The first bit determines the sign of the I component, while the second bit determines the sign of the Q component. Each symbol is represented using 2-bit signed format, where "01" corresponds to +1 and "11" corresponds to –1. The mapping is implemented inside a clocked process that updates the I/Q outputs on every rising clock edge.
